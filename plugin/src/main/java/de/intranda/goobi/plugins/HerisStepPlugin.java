@@ -121,15 +121,15 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
 
     @Override
     public PluginReturnValue run() {
-        // TODO get this from configuration file
         Map<String, String> metadataFieldMap = new HashMap<>();
-        //        metadataFieldMap.put("Alte Objekt-ID", "");
+        metadataFieldMap.put("Alte Objekt-ID", "DMDBID");
+        metadataFieldMap.put("Gehört zu alter Objekt-ID","ParentElement");
         metadataFieldMap.put("Katalogtitel", "TitleDocMain");
         metadataFieldMap.put("Typ", "HerisType");
         metadataFieldMap.put("Hauptkategorie grob", "MainCategory1");
         metadataFieldMap.put("Hauptkategorie mittel", "MainCategory2");
         metadataFieldMap.put("Hauptkategorie fein", "MainCategory3");
-        metadataFieldMap.put("Gemeinden politisch", "PoliticalCommunity");
+        metadataFieldMap.put("Gemeinden politisch (lt. Katastralgemeinden)", "PoliticalCommunity");
         metadataFieldMap.put("Katastralgemeinde", "CadastralCommune");
         metadataFieldMap.put("Bezirk", "PoliticalDistrict");
         metadataFieldMap.put("Bundesland", "FederalState");
@@ -143,8 +143,7 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
         metadataFieldMap.put("Zusatztext aus Adresse", "AdditionalAddressText");
         metadataFieldMap.put("Weitere Adressen", "OtherAddress");
         metadataFieldMap.put("Gehört zu HERIS-ID", "ParentElement");
-        metadataFieldMap.put("Ort", "Location");
-        //        metadataFieldMap.put("Gehört zu alter Objekt-ID","");
+        metadataFieldMap.put("Ort", "Community");
         metadataFieldMap.put("Staat","Country");
 
         String category1 = null;
