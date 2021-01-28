@@ -14,7 +14,7 @@ Detail | Description
 --- | ---
 **Plugin identifier**       | intranda_step_heris
 **Plugin type**             | Step plugin
-**Licence**                 | GPL 2.0 or newer    
+**Licence**                 | GPL 2.0 or newer
 **Documentation (German)**  | - no documentation available -
 **Documentation (English)** | - no documentation available -
 
