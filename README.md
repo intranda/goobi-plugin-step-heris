@@ -15,8 +15,8 @@ Detail | Description
 **Plugin identifier**       | intranda_step_heris
 **Plugin type**             | Step plugin
 **Licence**                 | GPL 2.0 or newer
-**Documentation (German)**  | - no documentation available -
-**Documentation (English)** | - no documentation available -
+**Documentation (German)**  | https://docs.goobi.io/goobi-workflow-plugins-de/step/heris-data-import
+**Documentation (English)** | https://docs.goobi.io/goobi-workflow-plugins-en/step/heris-data-import
 
 ## Goobi details
 
