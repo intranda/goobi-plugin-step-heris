@@ -76,11 +76,6 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
     public void initialize(Step step, String returnPath) {
         this.step = step;
         process = step.getProzess();
-        // read parameters from correct block in configuration file
-        //        SubnodeConfiguration myconfig = ConfigPlugins.getProjectAndStepConfig(title, step);
-        //        value = myconfig.getString("value", "default value");
-        //        allowTaskFinishButtons = myconfig.getBoolean("allowTaskFinishButtons", false);
-        //        log.info("Heris step plugin initialized");
     }
 
     @Override
