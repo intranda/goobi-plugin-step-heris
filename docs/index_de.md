@@ -1,6 +1,6 @@
 ---
 description: >-
-  This Step Plugin for Goobi workflow automatically requests specific monument information from an internal vocabulary data source to map these fields into the METS file. It was developed for the BDA in Austria.
+  Dieses Step Plugin für den Goobi workflow fragt automatisch bestimmte Denkmalinformationen aus einer internen Vokabulardatenquelle ab, um diese Felder in der METS-Datei abzubilden. Es wurde für das Bundesdenkmalamt in Österreich entwickelt.
   
 ---
 
