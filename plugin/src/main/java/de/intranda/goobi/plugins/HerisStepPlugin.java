@@ -36,7 +36,6 @@ import org.goobi.production.plugin.interfaces.IStepPluginVersion2;
 import org.goobi.vocabulary.Field;
 import org.goobi.vocabulary.VocabRecord;
 
-import de.sub.goobi.helper.exceptions.DAOException;
 import de.sub.goobi.helper.exceptions.SwapException;
 import de.sub.goobi.persistence.managers.VocabularyManager;
 import lombok.Getter;
@@ -118,7 +117,7 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
     public PluginReturnValue run() {
         Map<String, String> metadataFieldMap = new HashMap<>();
         metadataFieldMap.put("Alte Objekt-ID", "DMDBID");
-        metadataFieldMap.put("Gehört zu alter Objekt-ID","ParentElement");
+        metadataFieldMap.put("Gehört zu alter Objekt-ID", "ParentElement");
         metadataFieldMap.put("Katalogtitel", "TitleDocMain");
         metadataFieldMap.put("Typ", "HerisType");
         metadataFieldMap.put("Hauptkategorie grob", "MainCategory1");
@@ -139,7 +138,7 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
         metadataFieldMap.put("Weitere Adressen", "OtherAddress");
         metadataFieldMap.put("Gehört zu HERIS-ID", "ParentElement");
         metadataFieldMap.put("Ort", "Community");
-        metadataFieldMap.put("Staat","Country");
+        metadataFieldMap.put("Staat", "Country");
 
         String category1 = null;
         String category2 = null;
@@ -245,7 +244,7 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
             // save mets file
             mm.write(process.getMetadataFilePath());
 
-        } catch (ReadException | PreferencesException | WriteException | IOException | InterruptedException | SwapException | DAOException e) {
+        } catch (ReadException | PreferencesException | WriteException | IOException | SwapException e) {
             log.error(e);
         }
 
