@@ -32,7 +32,7 @@ import io.goobi.vocabulary.exchange.TranslationInstance;
 import io.goobi.vocabulary.exchange.Vocabulary;
 import io.goobi.vocabulary.exchange.VocabularySchema;
 import io.goobi.workflow.api.vocabulary.VocabularyAPIManager;
-import io.goobi.workflow.api.vocabulary.jsfwrapper.JSFVocabularyRecord;
+import io.goobi.workflow.api.vocabulary.helper.ExtendedVocabularyRecord;
 import org.apache.commons.lang.StringUtils;
 import org.goobi.beans.Process;
 import org.goobi.beans.Step;
@@ -188,14 +188,19 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
                 return PluginReturnValue.FINISH;
             }
 
-            List<JSFVocabularyRecord> records = vocabularyAPIManager.vocabularyRecords().search(vocabulary.getId(), herisFieldId.get() + ":" + herisId).getContent();
+            List<ExtendedVocabularyRecord> records = vocabularyAPIManager.vocabularyRecords()
+                    .list(vocabulary.getId())
+                    .search(herisFieldId.get() + ":" + herisId)
+                    .all()
+                    .request()
+                    .getContent();
 
             // continue, when no record exists
             if (records == null || records.isEmpty()) {
                 return PluginReturnValue.FINISH;
             }
 
-            JSFVocabularyRecord result = records.get(0);
+            ExtendedVocabularyRecord result = records.get(0);
 
             // replace metadata with data from heris
             for (FieldInstance field : result.getFields()) {
