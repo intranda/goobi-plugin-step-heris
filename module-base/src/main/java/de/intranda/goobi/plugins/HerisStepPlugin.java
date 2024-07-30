@@ -24,7 +24,15 @@ import java.io.IOException;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
+import io.goobi.vocabulary.exchange.FieldDefinition;
+import io.goobi.vocabulary.exchange.FieldInstance;
+import io.goobi.vocabulary.exchange.TranslationInstance;
+import io.goobi.vocabulary.exchange.Vocabulary;
+import io.goobi.vocabulary.exchange.VocabularySchema;
+import io.goobi.workflow.api.vocabulary.VocabularyAPIManager;
+import io.goobi.workflow.api.vocabulary.helper.ExtendedVocabularyRecord;
 import org.apache.commons.lang.StringUtils;
 import org.goobi.beans.Process;
 import org.goobi.beans.Step;
@@ -33,11 +41,8 @@ import org.goobi.production.enums.PluginReturnValue;
 import org.goobi.production.enums.PluginType;
 import org.goobi.production.enums.StepReturnValue;
 import org.goobi.production.plugin.interfaces.IStepPluginVersion2;
-import org.goobi.vocabulary.Field;
-import org.goobi.vocabulary.VocabRecord;
 
 import de.sub.goobi.helper.exceptions.SwapException;
-import de.sub.goobi.persistence.managers.VocabularyManager;
 import lombok.Getter;
 import lombok.extern.log4j.Log4j2;
 import net.xeoh.plugins.base.annotations.PluginImplementation;
@@ -55,6 +60,8 @@ import ugh.fileformats.mets.MetsMods;
 @PluginImplementation
 @Log4j2
 public class HerisStepPlugin implements IStepPluginVersion2 {
+    private static final String HERIS_VOCABULARY_NAME = "HERIS";
+    private static final String HERIS_SEARCH_FIELD_NAME = "HERIS-ID";
 
     @Getter
     private String title = "intranda_step_heris";
@@ -160,24 +167,45 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
                 return PluginReturnValue.FINISH;
             }
 
-            // get heris record
-            String vocabularyName = "HERIS";
             String herisId = herisMetadata.get(0).getValue();
-            String searchfieldName = "HERIS-ID";
-            List<VocabRecord> records = VocabularyManager.findExactRecords(vocabularyName, herisId, searchfieldName);
+
+            // get heris record
+            VocabularyAPIManager vocabularyAPIManager = VocabularyAPIManager.getInstance();
+            Vocabulary vocabulary = vocabularyAPIManager.vocabularies().findByName(HERIS_VOCABULARY_NAME);
+            VocabularySchema schema = vocabularyAPIManager.vocabularySchemas().get(vocabulary.getSchemaId());
+            Optional<Long> herisFieldId = schema.getDefinitions().stream()
+                    .filter(d -> d.getName().equals(HERIS_SEARCH_FIELD_NAME))
+                    .map(FieldDefinition::getId)
+                    .findFirst();
+            Map<String, Long> fieldNameIdMap = new HashMap<>();
+            Map<Long, String> idFieldNameMap = new HashMap<>();
+            schema.getDefinitions().forEach(d -> {
+                fieldNameIdMap.put(d.getName(), d.getId());
+                idFieldNameMap.put(d.getId(), d.getName());
+            });
+
+            if (herisFieldId.isEmpty()) {
+                return PluginReturnValue.FINISH;
+            }
+
+            List<ExtendedVocabularyRecord> records = vocabularyAPIManager.vocabularyRecords()
+                    .list(vocabulary.getId())
+                    .search(herisFieldId.get() + ":" + herisId)
+                    .all()
+                    .request()
+                    .getContent();
 
             // continue, when no record exists
             if (records == null || records.isEmpty()) {
                 return PluginReturnValue.FINISH;
             }
 
-            VocabRecord vr = records.get(0);
+            ExtendedVocabularyRecord result = records.get(0);
 
             // replace metadata with data from heris
-
-            for (Field field : vr.getFields()) {
-                String fieldName = field.getLabel();
-                String fieldValue = field.getValue();
+            for (FieldInstance field : result.getFields()) {
+                String fieldName = idFieldNameMap.get(field.getDefinitionId());
+                String fieldValue = extractValueOfField(field);
 
                 if (fieldName.equals("Hauptkategorie grob")) {
                     category1 = fieldValue;
@@ -249,5 +277,13 @@ public class HerisStepPlugin implements IStepPluginVersion2 {
         }
 
         return PluginReturnValue.FINISH;
+    }
+
+    private String extractValueOfField(FieldInstance field) {
+        return field.getValues().stream()// Assume there are no multi-values
+                .flatMap(v -> v.getTranslations().stream()) // Assume there are no translations
+                .map(TranslationInstance::getValue)
+                .findFirst()
+                .orElseThrow(() -> new IllegalStateException("No value found for record field"));
     }
 }
