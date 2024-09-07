@@ -2,7 +2,7 @@
 title: Heris Datenimport
 identifier: intranda_step_herisimport
 published: true
-description: Dieses Step Plugin für den Goobi workflow fragt automatisch bestimmte Denkmalinformationen aus einer internen Vokabulardatenquelle ab, um diese Felder in der METS-Datei abzubilden. Es wurde für das Bundesdenkmalamt in Österreich entwickelt.
+description: Dieses Step Plugin ermittelt Denkmalinformationen aus einem Vokabulardatenbank, um diese in der METS-Datei zu aktualisieren. Es wurde für das Bundesdenkmalamt in Österreich entwickelt.
 ---
 ## Einführung
 Dieses Plugin erlaubt die Datenübername von mehreren Metdaten aus einem Vokabular in METS-Dateien. Es wurde spezifisch für das Bundesdenkmalamt in Österreich entwickelt, so dass die Metadaten des Vokabulars sehr individuell und hard-gecoded sind. Sie stammen ursprünglich aus der sogenannten HERIS-Datenbank, die innerhalb von Goobi workflow als eigenes Vokabular importiert wurde.
