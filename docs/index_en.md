@@ -3,6 +3,10 @@ title: Heris data import
 identifier: intranda_step_herisimport
 published: true
 description: This step plugin retrieves monument information from a vocabulary database in order to update it in the METS file. It was developed for the Federal Monuments Office in Austria.
+keywords:
+    - Goobi workflow
+    - Plugin
+    - Step Plugin
 ---
 ## Introduction
 This plugin allows the data transfer of multiple metadata from a vocabulary into METS files. It was developed specifically for the Federal Monuments Office in Austria, so the metadata of the vocabulary are very individual and hard-coded. They originally come from the so-called HERIS database, which was imported within Goobi workflow as its own vocabulary.
