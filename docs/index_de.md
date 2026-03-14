@@ -9,7 +9,7 @@ keywords:
     - Step Plugin
 ---
 ## Einführung
-Dieses Plugin erlaubt die Datenübername von mehreren Metdaten aus einem Vokabular in METS-Dateien. Es wurde spezifisch für das Bundesdenkmalamt in Österreich entwickelt, so dass die Metadaten des Vokabulars sehr individuell und hard-gecoded sind. Sie stammen ursprünglich aus der sogenannten HERIS-Datenbank, die innerhalb von Goobi workflow als eigenes Vokabular importiert wurde.
+Dieses Plugin erlaubt die Datenübernahme von mehreren Metadaten aus einem Vokabular in METS-Dateien. Es wurde spezifisch für das Bundesdenkmalamt in Österreich entwickelt, so dass die Metadaten des Vokabulars sehr individuell und hard-gecoded sind. Sie stammen ursprünglich aus der sogenannten HERIS-Datenbank, die innerhalb von Goobi workflow als eigenes Vokabular importiert wurde.
 
 
 ## Installation
@@ -19,7 +19,7 @@ Das Plugin besteht insgesamt aus den folgenden zu installierenden Dateien:
 goobi_plugin_step_herisimport-base.jar
 ```
 
-Diese Datei mus in dem folgenden Verzeichnis installiert werden:
+Diese Datei muss in dem folgenden Verzeichnis installiert werden:
 
 ```bash
 /opt/digiverso/goobi/plugins/step/goobi_plugin_step_herisimport-base.jar
@@ -35,7 +35,7 @@ Da dieses Plugin üblicherweise automatisch ausgeführt werden soll, sollte der 
 
 Nachdem das Plugin vollständig installiert und eingerichtet wurde, wird es üblicherweise automatisch innerhalb des Workflows ausgeführt, so dass keine manuelle Interaktion mit dem Nutzer erfolgt. Stattdessen erfolgt der Aufruf des Plugins durch den Workflow im Hintergrund und führt die folgenden Arbeiten durch: 
 
-Das Plugin durchsucht die METS-Datei nach einem Metdatum mit dem Namen `HerisID` und importiert im Anschluß eine Liste verschiedener Metadaten aus dem Heris-Vokabular. Das Mapping der Metadaten umfasst dabei die folgende Liste:
+Das Plugin durchsucht die METS-Datei nach einem Metadatum mit dem Namen `HerisID` und importiert im Anschluss eine Liste verschiedener Metadaten aus dem Heris-Vokabular. Das Mapping der Metadaten umfasst dabei die folgende Liste:
 
 Metadatum Heris                                | Metadatum METS
 -----------------------------------------------|------------------------
